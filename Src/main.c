@@ -99,10 +99,11 @@ int main(void)
 	  SetData(str[i]);
   }
   SetCusor(2, 1);
-  for(uint8_t i = 0; i < strlen(str1);i++)
-  {
-	  SetData(str1[i]);
-  }
+//  for(uint8_t i = 0; i < strlen(str1);i++)
+//  {
+//	  SetData(str1[i]);
+//  }
+  StringLCD((uint8_t*)str1,strlen(str1));
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -113,9 +114,9 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  //I'm going to measure the processing speed.
-	  WRITE_REG(GPIOA->BSRR,GPIO_BSRR_BS4);
+	  WRITE_REG(GPIOA->BSRR,pulse_Pin);
 	  Delay_us(1);
-	  WRITE_REG(GPIOA->BRR,GPIO_BSRR_BS4);
+	  WRITE_REG(GPIOA->BRR,pulse_Pin);
 	  Delay_us(1);
 
   }
@@ -182,6 +183,7 @@ static void MX_GPIO_Init(void)
   /* GPIO Ports Clock Enable */
   LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOC);
   LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
+  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOB);
 
   /**/
   LL_GPIO_ResetOutputPin(C14_GPIO_Port, C14_Pin);
@@ -203,6 +205,18 @@ static void MX_GPIO_Init(void)
 
   /**/
   LL_GPIO_ResetOutputPin(pulse_GPIO_Port, pulse_Pin);
+
+  /**/
+  LL_GPIO_ResetOutputPin(A7_GPIO_Port, A7_Pin);
+
+  /**/
+  LL_GPIO_ResetOutputPin(B0_GPIO_Port, B0_Pin);
+
+  /**/
+  LL_GPIO_ResetOutputPin(A11_GPIO_Port, A11_Pin);
+
+  /**/
+  LL_GPIO_ResetOutputPin(A12_GPIO_Port, A12_Pin);
 
   /**/
   GPIO_InitStruct.Pin = C14_Pin;
@@ -259,6 +273,38 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
   LL_GPIO_Init(pulse_GPIO_Port, &GPIO_InitStruct);
+
+  /**/
+  GPIO_InitStruct.Pin = A7_Pin;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(A7_GPIO_Port, &GPIO_InitStruct);
+
+  /**/
+  GPIO_InitStruct.Pin = B0_Pin;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(B0_GPIO_Port, &GPIO_InitStruct);
+
+  /**/
+  GPIO_InitStruct.Pin = A11_Pin;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(A11_GPIO_Port, &GPIO_InitStruct);
+
+  /**/
+  GPIO_InitStruct.Pin = A12_Pin;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(A12_GPIO_Port, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
