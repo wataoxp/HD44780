@@ -29,7 +29,7 @@ void SetCMD(uint8_t CMD)
 
 	Delay_us(1);		//Enable SetUpTime
 	SendCMD(CMD >> 4);
-	SendCMD(CMD & 0xf);
+	SendCMD(CMD & 0x0f);
 	Delay_us(50);
 }
 void SetData(uint8_t Asci)
@@ -38,16 +38,22 @@ void SetData(uint8_t Asci)
 
 	Delay_us(1);		//Enable SetUpTime
 	SendData(Asci >> 4);
-	SendData(Asci & 0xf);
+	SendData(Asci & 0x0f);
 	Delay_us(50);
 }
 void SendCMD(uint8_t Command)
 {
-	WRITE_REG(GPIOA->BRR,0xF);	//D4~D7 Reset
+	WRITE_REG(GPIOA->BRR,0xFFFF);	//D4~D7 Reset
+	//WRITE_REG(GPIOB->BRR,0xFFFF);
 
 	WRITE_REG(GPIOC->BSRR,EN);	//EN=1
 
 	WRITE_REG(GPIOA->BSRR,Command);
+
+//	if(Command & 0x08) WRITE_REG(GPIOA->BSRR,D7);
+//	if(Command & 0x04) WRITE_REG(GPIOA->BSRR,D6);
+//	if(Command & 0x02) WRITE_REG(GPIOB->BSRR,D5);
+//	if(Command & 0x01) WRITE_REG(GPIOA->BSRR,D4);
 
 	Delay_us(5);
 	WRITE_REG(GPIOC->BRR,EN);	//EN=0
@@ -56,11 +62,17 @@ void SendCMD(uint8_t Command)
 void SendData(uint8_t data)
 {
 
-	WRITE_REG(GPIOA->BRR,0xF);	//D4~D7 Reset
+	WRITE_REG(GPIOA->BRR,0xFFFF);	//D4~D7 Reset
+//	WRITE_REG(GPIOB->BRR,0xFFFF);
 
 	WRITE_REG(GPIOC->BSRR,EN);	//EN=1
 
 	WRITE_REG(GPIOA->BSRR,data);
+
+//	if(data & 0x08) WRITE_REG(GPIOA->BSRR,D7);
+//	if(data & 0x04) WRITE_REG(GPIOA->BSRR,D6);
+//	if(data & 0x02) WRITE_REG(GPIOB->BSRR,D5);
+//	if(data & 0x01) WRITE_REG(GPIOA->BSRR,D4);
 
 	Delay_us(5);
 	WRITE_REG(GPIOC->BRR,EN);	//EN=0

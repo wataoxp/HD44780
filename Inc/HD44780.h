@@ -11,10 +11,15 @@
 #include "main.h"
 
 /* LCD Control Pin */
-#define D4 A0_Pin
-#define D5 A1_Pin
-#define D6 A2_Pin
-#define D7 A3_Pin
+//#define D4 A0_Pin
+//#define D5 A1_Pin
+//#define D6 A2_Pin
+//#define D7 A3_Pin
+
+#define D4 A7_Pin
+#define D5 B0_Pin
+#define D6 A11_Pin
+#define D7 A12_Pin
 
 #define RS C14_Pin
 #define EN C15_Pin
@@ -84,7 +89,18 @@ void SetCusor(uint8_t x,uint8_t y);
  * BSRRは下位16ビットがそれぞれのピンに対応しており、1をセットすることでHIGHを出力します。
  * BRRは16ビットのみのレジスタで、1をセットすることでLOWを出力します。
  * 今回のソースではGPIOAポートの0～3の4ピンを用いることで4ビットの値をそのまま書き込めるようにしています。
- * ポートは不問ですが、ピンアサインによっては修正が必要になる可能性もありますので注意してください。
+ *
+ * 他のポート、ピンを使う際はこのヘッダーファイルに定義しているD4~D7のマクロを使用するピンに合わせて再定義。
+ * さらにSend系関数の以下のコメントアウトを解除
+ * 	if(Command & 0x08) WRITE_REG(GPIOA->BSRR,D7);
+ *	if(Command & 0x04) WRITE_REG(GPIOA->BSRR,D6);
+ *	if(Command & 0x02) WRITE_REG(GPIOB->BSRR,D5);
+ *	if(Command & 0x01) WRITE_REG(GPIOA->BSRR,D4);
+ *	4ビットの引数を各ビットごとにチェックし、ピンを制御します。
+ *
+ * それと共にWRITE_REG(GPIOA->BSRR,Command);およびWRITE_REG(GPIOA->BSRR,data);をコメントアウトしてください。
+ * またGPIOA以外のポートを使う際にはBSRRの引数もGPIOBなどに修正。
+ * かつWRITE_REG(GPIOA->BRR,0xFFFF);によるピン出力のリセットもGPIOB等の分も追加するようにしてください。
  *
  * ***Enable SetUpTimeについて***
  * RSの出力変更からEnableを変更するまでの最小時間
