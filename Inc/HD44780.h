@@ -74,6 +74,7 @@ void SetCusor(uint8_t x,uint8_t y);
  * x:min 0 max20
  * y:min 0 max 1
  */
+void StringLCD(uint8_t *str,uint8_t length);
 
 /**
  * ***備考***
@@ -106,7 +107,7 @@ void SetCusor(uint8_t x,uint8_t y);
  * RSの出力変更からEnableを変更するまでの最小時間
  * デバイスによって異なる可能性もあります。三共社のデータシートによるとこの時間は0ns。
  * またRSのホールド時間は10nsとなっています。
- * 64MHｚの場合でも周期は15nsであり、仮に1サイクルであっても時間は足りるはずですが、このDelayは必要でした。
+ * 64MHzの場合でも周期は15nsであり、仮に1サイクルであっても時間は足りるはずですが、このDelayは必要でした。
  * LCDによっては不要な可能性もあります。
  **/
 #endif /* INC_HD44780_H_ */

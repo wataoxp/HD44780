@@ -115,3 +115,10 @@ void SetCusor(uint8_t x,uint8_t y)
 	SendCMD(point & 0xf);
 	Delay_us(50);
 }
+void StringLCD(uint8_t *str,uint8_t length)
+{
+	while(length--)
+	{
+		SetData(*str++);
+	}
+}
