@@ -27,7 +27,7 @@ void SetCMD(uint8_t CMD)
 {
 	WRITE_REG(GPIOC->BRR,RS); //RS=0
 
-	Delay_us(1);		//Enable SetUpTime
+	__asm volatile("nop\n");	//Enable SetUpTime
 	SendCMD(CMD >> 4);
 	SendCMD(CMD & 0x0f);
 	Delay_us(50);
@@ -36,7 +36,7 @@ void SetData(uint8_t Asci)
 {
 	WRITE_REG(GPIOC->BSRR,RS); //RS=1
 
-	Delay_us(1);		//Enable SetUpTime
+	__asm volatile("nop\n");	//Enable SetUpTime
 	SendData(Asci >> 4);
 	SendData(Asci & 0x0f);
 	Delay_us(50);
