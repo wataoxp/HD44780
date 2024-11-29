@@ -15,6 +15,7 @@ Edited File
 * main.c
 * HD44780.c
 * HD44780.h
+
 HD44780.hの下部に備考がありますので、使用前に確認してください。
 
 ## Licence
