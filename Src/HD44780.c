@@ -34,7 +34,7 @@ void SetCMD(uint8_t CMD)
 }
 void SetData(uint8_t Asci)
 {
-	WRITE_REG(GPIOC->BSRR,RS); //RS=1
+	WRITE_REG(GPIOC->BSRR,RS); //RS=18
 
 	__asm volatile("nop\n");	//Enable SetUpTime
 	SendData(Asci >> 4);
