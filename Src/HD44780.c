@@ -48,9 +48,9 @@ void SendCMD(uint8_t Command)
 
 	WRITE_REG(GPIOC->BSRR,EN);	//EN=1
 
-	WRITE_REG(GPIOA->BSRR,Command);
+	WRITE_REG(GPIOA->BSRR,Command);				//GPIOAのA0~A3をLCDに接続する場合
 
-//	if(Command & 0x08) WRITE_REG(GPIOA->BSRR,D7);
+//	if(Command & 0x08) WRITE_REG(GPIOA->BSRR,D7);	//GPIOピンが連続していない場合
 //	if(Command & 0x04) WRITE_REG(GPIOA->BSRR,D6);
 //	if(Command & 0x02) WRITE_REG(GPIOB->BSRR,D5);
 //	if(Command & 0x01) WRITE_REG(GPIOA->BSRR,D4);
