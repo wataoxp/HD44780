@@ -16,7 +16,9 @@ Edited File
 * HD44780.c
 * HD44780.h
 
+シフトレジスタを用いて3線で制御する方↓
 
+(https://github.com/wataoxp/ShiftRegtoLCD)
 
 ## Licence
 [MIT](https://github.com/wataoxp/Radio/blob/main/LICENSE)
